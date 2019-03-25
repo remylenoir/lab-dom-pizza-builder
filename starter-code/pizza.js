@@ -19,6 +19,24 @@ var state = {
   glutenFreeCrust: false
 };
 
+function renderPrice() {
+  // Hide the Pizza ingredients by default
+  document.querySelector(".price ul").innerHTML = "";
+  document.querySelector(".price strong").innerHTML = "";
+
+  let totalPrice = 10;
+  for (var item in ingredients) {
+    if (state[item] === true) {
+      let listItem = document.createElement("li");
+      listItem.innerText = `$${ingredients[item].price} ${ingredients[item].name}`;
+      document.querySelector(".price ul").appendChild(listItem);
+      totalPrice += ingredients[item].price;
+    }
+  }
+  return (totalPrice += document.querySelector(".price strong").innerHTML = `$${totalPrice}`);
+  // Iteration 4: change the HTML of `<aside class="panel price">`
+}
+
 // This function takes care of rendering the pizza based on the state
 // This function is triggered once at the begining and everytime the state is changed
 function renderEverything() {
@@ -85,16 +103,14 @@ function renderGlutenFreeCrust() {
   });
   // Iteration 2: add/remove the class "crust-gluten-free" of `<section class="crust">`
 }
+document.querySelectorAll(".btn").forEach(function(button) {
+  button.addEventListener("click", evt => {
+    evt.target.classList.toggle("active");
+  });
+});
 
 function renderButtons() {
-  document.querySelectorAll(".btn").forEach(function(button) {
-    button.classList.toggle("active");
-  });
   // Iteration 3: add/remove the class "active" of each `<button class="btn">`
-}
-
-function renderPrice() {
-  // Iteration 4: change the HTML of `<aside class="panel price">`
 }
 
 renderEverything();
